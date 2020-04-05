@@ -1,4 +1,6 @@
 $primary-color: #1d33f0;
+$primary-color-hover: #182ac7;
+$primary-color-disabled: #1d32f0a4;
 
 body {
   padding: 20px;
@@ -11,6 +13,10 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+textarea {
+  resize: none;
 }
 
 .app {

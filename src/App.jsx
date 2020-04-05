@@ -16,7 +16,7 @@ import PrivateRoute from './hoc/private-route/private-route.hoc';
 
 import './App.styles.scss';
 
-const App = (props) => {
+const App = props => {
   const [isAuth, setIsAuth] = useState(true);
 
   const loginHandler = () => {
@@ -27,9 +27,10 @@ const App = (props) => {
   return (
     <div className='app'>
       <Router>
-        <Header />
+        <Header isAuth={isAuth} />
 
         <Switch>
+          {/* Protected routes using custom PrivateRoute HOC */}
           <PrivateRoute isAuth={isAuth} path='/home' exact>
             <HomePage />
           </PrivateRoute>
@@ -38,6 +39,7 @@ const App = (props) => {
             <ProfilePage onLogout={logoutHandler} />
           </PrivateRoute>
 
+          {/* Only make Auth page accesible when user is not logged in */}
           <Route path='/auth'>
             {!isAuth ? (
               <AuthPage onLogin={loginHandler} />
@@ -46,6 +48,12 @@ const App = (props) => {
             )}
           </Route>
 
+          {/* For initial loading page */}
+          <Route path='/' exact>
+            <Redirect to='home' />
+          </Route>
+
+          {/* Error page that shows only when a user access a page that doesn't exist */}
           <Route path='*'>
             <NotFoundPage />
           </Route>

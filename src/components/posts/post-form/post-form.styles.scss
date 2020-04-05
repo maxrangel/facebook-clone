@@ -1,0 +1,52 @@
+@import '../../../App.styles.scss';
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 0 25px 0;
+
+  .post-input {
+    height: 50px;
+    background: none;
+    color: grey;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    width: 100%;
+    border: none;
+    margin-bottom: 5px;
+    border-bottom: 1px solid grey;
+
+    &:focus {
+      color: black;
+      border-bottom: 1.5px solid black;
+      outline: none;
+    }
+  }
+
+  .post-btn {
+    border: none;
+    width: 92%;
+    height: 35px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    background: $primary-color;
+    color: white;
+    transition: 0.2s;
+
+    &:hover {
+      background: $primary-color-hover;
+      transition: 0.2s;
+    }
+
+    &:disabled {
+      background: $primary-color-disabled;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
