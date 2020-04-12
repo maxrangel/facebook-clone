@@ -9,19 +9,30 @@
 
   .post-input {
     height: 50px;
-    background: none;
+    background: white;
+    opacity: 0.5;
     color: grey;
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     width: 100%;
     border: none;
+    border-radius: 5px;
     margin-bottom: 5px;
     border-bottom: 1px solid grey;
+    transition: 0.2s;
 
     &:focus {
       color: black;
-      border-bottom: 1.5px solid black;
+      opacity: 1;
+      transition: 0.2s;
+      border-bottom: 1.5px solid $primary-color;
       outline: none;
+    }
+
+    &:hover {
+      color: black;
+      opacity: 1;
+      transition: 0.2s;
     }
   }
 

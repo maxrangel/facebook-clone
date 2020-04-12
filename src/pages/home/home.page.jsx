@@ -1,5 +1,6 @@
 import React from 'react';
 import PostForm from '../../components/posts/post-form/post-form.component';
+import PostCard from '../../components/posts/post-card/post-card.component';
 
 import './home.styles.scss';
 
@@ -11,7 +12,7 @@ const HomePage = () => {
       </div>
 
       <div className='posts-container'>
-        <div className='post'>Post</div>
+        <PostCard />
       </div>
     </div>
   );
