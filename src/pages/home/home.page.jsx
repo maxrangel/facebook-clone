@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+
 import PostForm from '../../components/posts/post-form/post-form.component';
 import PostCard from '../../components/posts/post-card/post-card.component';
 
 import './home.styles.scss';
 
-const HomePage = () => {
-  const [posts, setPosts] = useState([]);
-
-  const addPost = post => {
-    setPosts([...posts, post]);
-  };
+const HomePage = props => {
+  const { posts } = props;
 
   const renderedPosts = posts.map(post => (
     <PostCard post={post} key={post.id} />
@@ -18,7 +16,7 @@ const HomePage = () => {
   return (
     <div className='home-container'>
       <div className='post-form-container'>
-        <PostForm onAddPostHandler={addPost} />
+        <PostForm />
       </div>
 
       <div className='posts-container'>
@@ -27,5 +25,8 @@ const HomePage = () => {
     </div>
   );
 };
+const mapStateToProps = state => ({
+  posts: state.postsReducer.posts
+});
 
-export default HomePage;
+export default connect(mapStateToProps)(HomePage);

@@ -1,12 +1,12 @@
-import React, { useRef, useEffect, useState } from 'react';
-import * as moment from 'moment';
+import React, { useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import { addPost } from '../../../store/actions/posts.actions';
 import TextareaAutosize from 'react-textarea-autosize';
 
-import Post from '../../../models/post.model';
 import './post-form.styles.scss';
 
 const PostForm = props => {
-  const { onAddPostHandler } = props;
+  const { addPost } = props;
   const postDescRef = useRef('');
   const [disableBtn, setDisableBtn] = useState(true); // Btn is disabled at start
 
@@ -20,16 +20,9 @@ const PostForm = props => {
 
   const onAddPost = () => {
     const descInput = postDescRef.current.value;
-
-    const newPost = new Post(
-      Math.ceil(Math.random() * 100),
-      descInput,
-      1,
-      moment().utc().format('Do MMMM YYYY, h:mm:ss a')
-    );
+    addPost(descInput);
     postDescRef.current.value = '';
     setDisableBtn(true);
-    onAddPostHandler(newPost);
   };
 
   return (
@@ -51,4 +44,8 @@ const PostForm = props => {
   );
 };
 
-export default PostForm;
+const mapDispatchToProps = dispatch => ({
+  addPost: postDesc => dispatch(addPost(postDesc))
+});
+
+export default connect(null, mapDispatchToProps)(PostForm);
