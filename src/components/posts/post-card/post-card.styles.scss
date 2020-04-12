@@ -12,6 +12,7 @@
   background: white;
   font-size: 14px;
   padding: 0px 15px;
+  margin-bottom: 10px;
 
   .post-user {
     padding: 10px;
@@ -26,19 +27,19 @@
       height: 50px;
       width: 50px;
     }
-  }
 
-  .user-info {
-    padding: 0px 10px;
+    .user-info {
+      padding: 0px 10px;
 
-    .user-name {
-      margin: 0;
-      color: $primary-color;
-      font-size: 18px;
+      .user-name {
+        margin: 0;
+        color: $primary-color;
+        font-size: 18px;
 
-      &:hover {
-        // border-bottom: 1px solid $primary-color;
-        cursor: pointer;
+        &:hover {
+          // border-bottom: 1px solid $primary-color;
+          cursor: pointer;
+        }
       }
     }
 
@@ -52,10 +53,12 @@
   .post {
     padding: 0 10px;
     font-size: 16px;
-    border-bottom: 1px solid #ccc;
+    align-self: flex-start;
+    text-align: justify;
   }
 
   .post-buttons {
+    border-top: 1px solid #ccc;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -71,9 +74,19 @@
       width: 100%;
       border: none;
       background: white;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      // TODO: HAVE THE LIKE FUNCITONALITY TO ADD THIS CLASS DYNAMICALLY
+      &.liked {
+        color: $primary-color;
+      }
 
       &:hover {
         background: #f0f0f0;
+        cursor: pointer;
       }
 
       &:focus {

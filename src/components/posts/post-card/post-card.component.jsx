@@ -1,7 +1,15 @@
 import React from 'react';
+import {
+  FaThumbsUp,
+  FaRegThumbsUp,
+  FaRegCommentAlt,
+  FaShare
+} from 'react-icons/fa';
 import './post-card.styles.scss';
 
 const PostCard = props => {
+  const { post } = props;
+
   return (
     <div className='post-card'>
       <div className='post-user'>
@@ -12,21 +20,23 @@ const PostCard = props => {
         </div>
         <div className='user-info'>
           <h2 className='user-name'>Username</h2>
-          <p className='post-published'>Posted on: -------</p>
+          <p className='post-published'>Posted on: {post.createdAt}</p>
         </div>
       </div>
       <div className='post'>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos at iusto
-          dolorem quidem nemo eum aperiam corrupti modi dolores, asperiores,
-          provident optio sint doloremque molestias aliquam eaque cumque.
-          Explicabo, commodi!
-        </p>
+        <p>{post.content}</p>
       </div>
       <div className='post-buttons'>
-        <button className="btn">Like</button>
-        <button className="btn">Comment</button>
-        <button className="btn">Share</button>
+        <button className='btn'>
+          <FaRegThumbsUp /> Like
+        </button>
+        <button className='btn'>
+          <FaRegCommentAlt />
+          Comment
+        </button>
+        <button className='btn'>
+          <FaShare /> Share
+        </button>
       </div>
     </div>
   );

@@ -42,17 +42,18 @@
     height: 35px;
     border-radius: 5px;
     font-size: 18px;
-    cursor: pointer;
     background: $primary-color;
     color: white;
     transition: 0.2s;
 
     &:hover {
+      cursor: pointer;
       background: $primary-color-hover;
       transition: 0.2s;
     }
 
     &:disabled {
+      cursor: default;
       background: $primary-color-disabled;
     }
 
