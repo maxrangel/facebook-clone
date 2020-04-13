@@ -1,12 +1,13 @@
 import React from 'react';
+import LoginForm from '../../components/auth/login-form/login-form.component';
+import SignupForm from '../../components/auth/signup-form/signup-form.component';
 import './auth.styles.scss';
 
-const AuthPage = (props) => {
-  const { onLogin } = props;
+const AuthPage = props => {
   return (
-    <div>
-      <h2>Auth page</h2>
-      <button onClick={onLogin}>Login</button>
+    <div className='auth-page'>
+      <SignupForm />
+      <LoginForm />
     </div>
   );
 };

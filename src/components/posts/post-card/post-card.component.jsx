@@ -5,6 +5,7 @@ import {
   FaRegCommentAlt,
   FaShare
 } from 'react-icons/fa';
+import UserProfilePicture from '../../UI/user-profile-picture/user-profile-picture.component';
 import './post-card.styles.scss';
 
 const PostCard = props => {
@@ -13,11 +14,7 @@ const PostCard = props => {
   return (
     <div className='post-card'>
       <div className='post-user'>
-        <div className='user-profile'>
-          <img
-            src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
-            alt='User profile'></img>
-        </div>
+        <UserProfilePicture />
         <div className='user-info'>
           <h2 className='user-name'>Username</h2>
           <p className='post-published'>Posted on: {post.createdAt}</p>

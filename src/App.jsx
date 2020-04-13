@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+  Redirect
 } from 'react-router-dom';
 
 import Header from './components/UI/header/header.component';
@@ -17,12 +17,7 @@ import PrivateRoute from './hoc/private-route/private-route.hoc';
 import './App.styles.scss';
 
 const App = props => {
-  const [isAuth, setIsAuth] = useState(true);
-
-  const loginHandler = () => {
-    setIsAuth(true);
-  };
-  const logoutHandler = () => setIsAuth(false);
+  const [isAuth, setIsAuth] = useState(false);
 
   return (
     <div className='app'>
@@ -36,16 +31,12 @@ const App = props => {
           </PrivateRoute>
 
           <PrivateRoute isAuth={isAuth} path='/profile' exact>
-            <ProfilePage onLogout={logoutHandler} />
+            <ProfilePage />
           </PrivateRoute>
 
           {/* Only make Auth page accesible when user is not logged in */}
           <Route path='/auth'>
-            {!isAuth ? (
-              <AuthPage onLogin={loginHandler} />
-            ) : (
-              <Redirect to='home' />
-            )}
+            {!isAuth ? <AuthPage /> : <Redirect to='home' />}
           </Route>
 
           {/* For initial loading page */}
