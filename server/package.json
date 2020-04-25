@@ -1,0 +1,28 @@
+{
+  "name": "facebook-clone-api",
+  "version": "1.0.0",
+  "description": "API that serves for the Facebook Clone App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:watch": "nodemon server.js"
+  },
+  "keywords": [
+    "mern",
+    "mongodb",
+    "express",
+    "react",
+    "nodejs"
+  ],
+  "author": "Maximiliano Urbina Rangel",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
