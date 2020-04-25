@@ -1,44 +1,61 @@
-import React, { useState } from 'react';
-import Input from '../../UI/input/input.component';
+import React, { useRef } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../../store/actions/auth.actions';
 import './login-form.styles.scss';
 
 const LoginForm = props => {
-  const [userCredentials, setUserCredentials] = useState({
-    email: '',
-    password: ''
-  });
-  const { email, password } = userCredentials;
+  const { loginUser } = props;
+  const userRef = useRef('');
+  const passwordRef = useRef('');
 
-  const handleChange = event => {
-    const { value, name } = event.target;
-    setUserCredentials({ ...userCredentials, [name]: value });
+  const onLoginHandler = event => {
+    event.preventDefault();
+    const userInput = userRef.current.value;
+    const passwordInput = passwordRef.current.value;
+
+    // Validate input, can't be empty
+    if (!userInput || !passwordInput) {
+      console.log('Fields can not be empty!');
+      return;
+    }
+
+    console.log(userInput);
+    console.log(passwordInput);
+    loginUser(userInput, passwordInput);
   };
 
   return (
-    <div className='login-form'>
-      <h2>I already have an account</h2>
-      <span>Sign in with your email and password</span>
-
-      <form>
-        <Input
-          name='email'
-          type='email'
-          handleChange={handleChange}
-          value={email}
-          label='Email'
-          required
-        />
-        <Input
-          name='password'
-          type='password'
-          handleChange={handleChange}
-          value={password}
-          label='Password'
-          required
-        />
+    <div className='login-container'>
+      <form className='login-form'>
+        <div className='form-group'>
+          <label htmlFor='user'>Email or username</label>
+          <input
+            type='text'
+            id='user'
+            placeholder='Email or username'
+            ref={userRef}
+          />
+        </div>
+        <div className='form-group'>
+          <label htmlFor='password'>Password</label>
+          <input
+            type='password'
+            id='password'
+            required
+            placeholder='Password'
+            ref={passwordRef}
+          />
+        </div>
+        <button type='submit' className='login-btn' onClick={onLoginHandler}>
+          Log In
+        </button>
       </form>
     </div>
   );
 };
 
-export default LoginForm;
+const mapDispatchToProps = dispatch => ({
+  loginUser: (user, password) => dispatch(login(user, password))
+});
+
+export default connect(null, mapDispatchToProps)(LoginForm);

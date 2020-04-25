@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { logout } from '../../store/actions/auth.actions'
 import PostForm from '../../components/posts/post-form/post-form.component';
 import ProfileHeader from '../../components/user-profile/profile-header/profile-header.component';
 import PostCard from '../../components/posts/post-card/post-card.component';
@@ -7,7 +8,7 @@ import PostCard from '../../components/posts/post-card/post-card.component';
 import './profile.styles.scss';
 
 const ProfilePage = props => {
-  const { posts } = props;
+  const { posts, logoutUser } = props;
   const userPosts = posts.filter(post => post.userId === 1);
 
   const renderedPosts = userPosts.map(post => (
@@ -16,7 +17,7 @@ const ProfilePage = props => {
 
   return (
     <div className='profile-container'>
-      <ProfileHeader />
+      <ProfileHeader onLogoutHandler={logoutUser} />
       <div className='post-form-container'>
         <PostForm />
       </div>
@@ -38,4 +39,8 @@ const mapStateToProps = state => ({
   posts: state.postsReducer.posts
 });
 
-export default connect(mapStateToProps)(ProfilePage);
+const mapDispatchToProps = dispatch => ({
+  logoutUser: () => dispatch(logout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

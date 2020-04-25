@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,10 +18,10 @@ import PrivateRoute from './hoc/private-route/private-route.hoc';
 import './App.styles.scss';
 
 const App = props => {
-  const [isAuth, setIsAuth] = useState(false);
-
+  const { isAuth } = props;
+  
   return (
-    <div className='app'>
+    <div>
       <Router>
         <Header isAuth={isAuth} />
 
@@ -54,4 +55,8 @@ const App = props => {
   );
 };
 
-export default App;
+const mapStateToProps = state => ({
+  isAuth: state.authReducer.isAuth
+});
+
+export default connect(mapStateToProps)(App);

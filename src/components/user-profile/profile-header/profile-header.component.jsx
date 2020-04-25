@@ -4,12 +4,16 @@ import UserProfilePicture from '../../UI/user-profile-picture/user-profile-pictu
 import './profile-header.styles.scss';
 
 const ProfileHeader = props => {
+  const { onLogoutHandler } = props;
+
   return (
     <div className='profile-header-container'>
       <UserProfilePicture />
-      <div className="profile-actions">
+      <div className='profile-actions'>
         <h2>Username</h2>
-        <button className="btn-logout">Logout</button>
+        <button className='btn-logout' onClick={onLogoutHandler}>
+          Log Out
+        </button>
       </div>
     </div>
   );

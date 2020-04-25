@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  FaThumbsUp,
+  // FaThumbsUp,
   FaRegThumbsUp,
   FaRegCommentAlt,
   FaShare
