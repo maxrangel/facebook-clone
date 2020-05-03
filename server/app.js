@@ -10,6 +10,9 @@ const compression = require('compression');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/error.controller');
 
+const authRouter = require('./routes/auth.routes');
+const postsRouter = require('./routes/posts.routes');
+
 const app = express();
 
 app.enable('trust proxy');
@@ -42,6 +45,8 @@ app.use(xss());
 app.use(compression());
 
 // Routes
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/posts', postsRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));

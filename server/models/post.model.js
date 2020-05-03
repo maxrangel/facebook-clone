@@ -13,14 +13,18 @@ const postSchema = new mongoose.Schema(
     },
     likes: [
       {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User'
+        userId: {
+          type: mongoose.Schema.ObjectId,
+          ref: 'User'
+        }
       }
     ],
     comments: [
       {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Comment'
+        commentId: {
+          type: mongoose.Schema.ObjectId,
+          ref: 'Comment'
+        }
       }
     ]
   },
