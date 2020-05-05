@@ -29,6 +29,14 @@ const postSchema = new mongoose.Schema(
 
 postSchema.index({ _id: 1, userId: 1 });
 
+postSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'comments',
+    select: 'comment'
+  });
+  next();
+});
+
 const Post = mongoose.model('Post', postSchema);
 
 module.exports = Post;

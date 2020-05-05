@@ -12,6 +12,7 @@ const globalErrorHandler = require('./controllers/error.controller');
 
 const authRouter = require('./routes/auth.routes');
 const postsRouter = require('./routes/posts.routes');
+const commentsRouter = require('./routes/comment.routes');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use(compression());
 // Routes
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/posts', postsRouter);
+app.use('/api/v1/comments', commentsRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));

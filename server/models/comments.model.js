@@ -2,9 +2,14 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema(
   {
-    content: {
+    comment: {
       type: String,
       required: [true, 'Must enter some content to the post!']
+    },
+    postId: {
+      type: mongoose.Schema.ObjectId,
+      required: [true, 'Comment must belong to a post'],
+      ref: 'Post'
     },
     userId: {
       type: mongoose.Schema.ObjectId,
