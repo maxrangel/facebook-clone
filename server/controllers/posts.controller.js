@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
 const catchAsync = require('../utils/catchAsync');
@@ -23,6 +22,10 @@ exports.createNewPost = catchAsync(async (req, res, next) => {
   if (!validUser) return next(new AppError('This is an invalid user!', 400));
 
   const newPost = await Post.create({ content, userId });
+  
+  await User.findByIdAndUpdate(userId, {
+    $push: { posts: newPost._id }
+  });
 
   res.status(201).json({
     status: 'success',
@@ -35,31 +38,23 @@ exports.createNewPost = catchAsync(async (req, res, next) => {
 exports.likePost = catchAsync(async (req, res, next) => {
   const { postId, userId } = req.body;
 
-  const post = await Post.findById(postId);
-  // const isPostLikedIndex = post.likes.findIndex(
-  //   like =>
-  //     mongoose.Types.ObjectId(like.userId) === mongoose.Types.ObjectId(userId)
-  // );
-
-  const isPostLiked = await Post.find({
+  // Check if the user has already liked this post
+  const isPostLiked = await Post.findOne({
     _id: postId,
-    likes: { $elemMatch: { userId: userId } }
+    likes: { $in: [userId] }
   });
-  console.log(isPostLiked);
 
-  // console.log(isPostLikedIndex);
+  if (!isPostLiked) {
+    // Like post
+    await Post.findByIdAndUpdate(postId, { $push: { likes: userId } });
+  } else {
+    // Dislike post, remove it from the array
+    await Post.findByIdAndUpdate(postId, {
+      $pull: { likes: { $in: [userId] } }
+    });
+  }
 
-  // // New like to post
-  // if (isPostLikedIndex < 0) post.likes.push({ userId });
-  // // Dislike post
-  // else post.likes.splice(isPostLikedIndex, 1);
-
-  // await post.save();
-
-  res.status(201).json({
-    status: 'success',
-    data: {
-      post
-    }
+  res.status(204).json({
+    status: 'success'
   });
 });

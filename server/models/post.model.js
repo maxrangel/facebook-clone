@@ -13,23 +13,21 @@ const postSchema = new mongoose.Schema(
     },
     likes: [
       {
-        userId: {
-          type: mongoose.Schema.ObjectId,
-          ref: 'User'
-        }
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
       }
     ],
     comments: [
       {
-        commentId: {
-          type: mongoose.Schema.ObjectId,
-          ref: 'Comment'
-        }
+        type: mongoose.Schema.ObjectId,
+        ref: 'Comment'
       }
     ]
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+postSchema.index({ _id: 1, userId: 1 });
 
 const Post = mongoose.model('Post', postSchema);
 

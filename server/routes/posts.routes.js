@@ -9,6 +9,6 @@ router
   .get(postsController.getAllPosts)
   .post(postsController.createNewPost);
 
-router.post('/like', postsController.likePost)
+router.post('/like', postsController.likePost);
 
 module.exports = router;
