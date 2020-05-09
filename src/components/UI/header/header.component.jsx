@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import LoginForm from '../../auth/login-form/login-form.component';
 import './header.styles.scss';
 
 const Header = props => {
@@ -24,9 +23,7 @@ const Header = props => {
             Profile
           </NavLink>
         </div>
-      ) : (
-        <LoginForm />
-      )}
+      ) : null}
     </div>
   );
 };

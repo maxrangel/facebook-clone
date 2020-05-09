@@ -1,22 +1,51 @@
-import { LOGIN, LOGOUT, SIGNUP } from '../action.types';
-import User from '../../models/user.model';
+import axios from 'axios';
+import {
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  SIGNUP_START,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
+  LOGOUT
+} from '../action.types';
 
-export const login = (user, password) => {
-  return { type: LOGIN, payload: { user, password } };
+export const login = (email, password) => {
+  return async dispatch => {
+    dispatch({ type: LOGIN_START });
+
+    try {
+      const response = await axios.post('/api/v1/auth/login', {
+        email,
+        password
+      });
+      const user = response.data.data.user;
+      dispatch({ type: LOGIN_SUCCESS, payload: { user } });
+    } catch (err) {
+      const error = err.response.data.message;
+      dispatch({ type: LOGIN_FAILURE, payload: { error } });
+    }
+  };
+};
+
+export const signup = (username, email, password, passwordConfirm) => {
+  return async dispatch => {
+    dispatch({ type: SIGNUP_START });
+
+    try {
+      await axios.post('/api/v1/auth/signup', {
+        username,
+        email,
+        password,
+        passwordConfirm
+      });
+      dispatch({ type: SIGNUP_SUCCESS });
+    } catch (err) {
+      const error = err.response.data.message;
+      dispatch({ type: SIGNUP_FAILURE, payload: { error } });
+    }
+  };
 };
 
 export const logout = () => {
   return { type: LOGOUT };
-};
-
-export const signup = (username, email, password) => {
-  const newUser = new User(
-    Math.round(Math.random() * 100),
-    username,
-    email,
-    password,
-    []
-  );
-  
-  return { type: SIGNUP, payload: newUser };
 };

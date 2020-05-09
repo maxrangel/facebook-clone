@@ -1,5 +1,4 @@
 const Post = require('../models/post.model');
-const User = require('../models/user.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
@@ -17,15 +16,7 @@ exports.getAllPosts = catchAsync(async (req, res, next) => {
 exports.createNewPost = catchAsync(async (req, res, next) => {
   const { content, userId } = req.body;
 
-  const validUser = await User.findById(userId);
-
-  if (!validUser) return next(new AppError('This is an invalid user!', 400));
-
   const newPost = await Post.create({ content, userId });
-  
-  await User.findByIdAndUpdate(userId, {
-    $push: { posts: newPost._id }
-  });
 
   res.status(201).json({
     status: 'success',

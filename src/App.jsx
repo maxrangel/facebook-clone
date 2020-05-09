@@ -13,7 +13,7 @@ import ProfilePage from './pages/profile/profile.page';
 import AuthPage from './pages/auth/auth.page';
 import NotFoundPage from './pages/not-found/404.page';
 
-import PrivateRoute from './hoc/private-route/private-route.hoc';
+import PrivateRoute from './hoc/with-private-route/with-private-route.hoc';
 
 import './App.styles.scss';
 

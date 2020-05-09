@@ -1,61 +1,65 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../../../store/actions/auth.actions';
+
+import Input from '../../UI/input/input.component';
+import Button from '../../UI/button/button.component';
+import Spinner from '../../UI/spinner/spinner.component';
+
 import './login-form.styles.scss';
 
 const LoginForm = props => {
-  const { loginUser } = props;
-  const userRef = useRef('');
+  const { onShowSignup, loginUser, isLoading } = props;
+
+  const emailRef = useRef('');
   const passwordRef = useRef('');
 
-  const onLoginHandler = event => {
+  const onLoginSubmit = event => {
     event.preventDefault();
-    const userInput = userRef.current.value;
+    const emailInput = emailRef.current.value;
     const passwordInput = passwordRef.current.value;
+    // TODO: ERROR HANDLING
+    if (!emailInput.length || !passwordInput.length) return;
 
-    // Validate input, can't be empty
-    if (!userInput || !passwordInput) {
-      console.log('Fields can not be empty!');
-      return;
-    }
-
-    console.log(userInput);
-    console.log(passwordInput);
-    loginUser(userInput, passwordInput);
+    loginUser(emailInput, passwordInput);
   };
 
-  return (
-    <div className='login-container'>
-      <form className='login-form'>
-        <div className='form-group'>
-          <label htmlFor='user'>Email or username</label>
-          <input
-            type='text'
-            id='user'
-            placeholder='Email or username'
-            ref={userRef}
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            id='password'
-            required
-            placeholder='Password'
-            ref={passwordRef}
-          />
-        </div>
-        <button type='submit' className='login-btn' onClick={onLoginHandler}>
-          Log In
-        </button>
-      </form>
+  return isLoading ? (
+    <Spinner message='Logging in...' />
+  ) : (
+    <div className='login-form'>
+      <h2>I already have an account</h2>
+      <span>Log in with your email and password.</span>
+
+      <Input
+        type='email'
+        name='login-email'
+        label='Email'
+        id='login-email'
+        inputRef={emailRef}
+      />
+      <Input
+        type='password'
+        name='login-password'
+        label='Password'
+        id='login-password'
+        inputRef={passwordRef}
+      />
+
+      <div className='btns-container'>
+        <Button label='Log In' onClick={onLoginSubmit} />
+        <Button label="I don't have an account..." onClick={onShowSignup} />
+      </div>
     </div>
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  loginUser: (user, password) => dispatch(login(user, password))
+const mapStateToProps = state => ({
+  isLoading: state.authReducer.isLoading
 });
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+const mapDispatchToProps = dispatch => ({
+  loginUser: (email, password) => dispatch(login(email, password))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

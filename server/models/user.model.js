@@ -41,7 +41,6 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false
   },
-  posts: [{ type: mongoose.Schema.ObjectId, ref: 'Post' }],
   friends: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
 });
 
