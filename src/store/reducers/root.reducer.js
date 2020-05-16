@@ -6,12 +6,7 @@ import localForage from 'localforage';
 import postsReducer from './posts.reducer';
 import authReducer from './auth.reducer';
 
-const rootPersistConfig = {
-  key: 'root',
-  storage: localForage,
-  stateReconcilier: autoMergeLevel2
-};
-
+// Only persist the user
 const authPersistConfig = {
   key: 'authData',
   storage: localForage,
@@ -24,4 +19,4 @@ const rootReducer = combineReducers({
   authReducer: persistReducer(authPersistConfig, authReducer)
 });
 
-export default persistReducer(rootPersistConfig, rootReducer);
+export default rootReducer;
