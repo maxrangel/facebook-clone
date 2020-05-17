@@ -1,9 +1,51 @@
+@import '../../App.styles.scss';
+
 .profile-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding: 0 100px;
+
+  .user-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+    width: 100%;
+
+    .profile-actions {
+      align-self: center;
+      margin: 0 0 0 15px;
+
+      h2 {
+        margin: 0;
+        font-size: 28px;
+      }
+
+      .btn-logout {
+        border: none;
+        height: 35px;
+        width: 100%;
+        font-size: 20px;
+        background: $light-color;
+        color: white;
+
+        &:hover {
+          cursor: pointer;
+          background: $dark-color;
+        }
+      }
+    }
+    // Image on the UserProfilePicture component
+    img {
+      height: 160px;
+      width: 160px;
+      border: 2px solid $dark-color;
+    }
+  }
 
   .post-form-container {
     margin-top: 15px;

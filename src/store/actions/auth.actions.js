@@ -5,7 +5,8 @@ import {
   LOGIN_FAILURE,
   SIGNUP_START,
   SIGNUP_SUCCESS,
-  SIGNUP_FAILURE
+  SIGNUP_FAILURE,
+  LOGOUT
 } from '../action.types';
 
 export const login = (email, password) => {
@@ -44,3 +45,5 @@ export const signup = (username, email, password, passwordConfirm) => {
     }
   };
 };
+
+export const logout = () => ({ type: LOGOUT });

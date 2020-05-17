@@ -11,6 +11,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/error.controller');
 
 const authRouter = require('./routes/auth.routes');
+const userRouter = require('./routes/users.routes');
 const postsRouter = require('./routes/posts.routes');
 const commentsRouter = require('./routes/comment.routes');
 
@@ -47,6 +48,7 @@ app.use(compression());
 
 // Routes
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', postsRouter);
 app.use('/api/v1/comments', commentsRouter);
 

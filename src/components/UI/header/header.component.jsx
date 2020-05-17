@@ -1,9 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
+import { fetchUserProfile } from '../../../store/actions/user.actions';
 import './header.styles.scss';
 
 const Header = props => {
-  const { isAuth } = props;
+  const { isAuth, currentUser } = props;
+
+  const onNavigateUserProfile = () => {};
 
   return (
     <div className='header'>
@@ -19,7 +24,8 @@ const Header = props => {
           <NavLink
             to='/profile'
             className='option'
-            activeClassName='active-link'>
+            activeClassName='active-link'
+            onClick={onNavigateUserProfile}>
             Profile
           </NavLink>
         </div>
@@ -28,4 +34,13 @@ const Header = props => {
   );
 };
 
-export default Header;
+const mapStateToProps = state => ({
+  currentUser: state.authReducer.currentUser,
+  isAuth: state.authReducer.isAuth
+});
+
+const mapDispatchToProps = dispatch => ({
+  goToProfile: userId => dispatch(fetchUserProfile(userId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

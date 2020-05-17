@@ -19,11 +19,11 @@ import './App.styles.scss';
 
 const App = props => {
   const { isAuth } = props;
-  
+
   return (
     <div>
       <Router>
-        <Header isAuth={isAuth} />
+        <Header />
 
         <Switch>
           {/* Protected routes using custom PrivateRoute HOC */}

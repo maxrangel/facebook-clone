@@ -3,8 +3,9 @@ import { persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import localForage from 'localforage';
 
-import postsReducer from './posts.reducer';
-import authReducer from './auth.reducer';
+import postsReducer from './reducers/posts.reducer';
+import authReducer from './reducers/auth.reducer';
+import userReducer from './reducers/user.reducer';
 
 // Only persist the user
 const authPersistConfig = {
@@ -15,8 +16,9 @@ const authPersistConfig = {
 };
 
 const rootReducer = combineReducers({
+  authReducer: persistReducer(authPersistConfig, authReducer),
   postsReducer,
-  authReducer: persistReducer(authPersistConfig, authReducer)
+  userReducer
 });
 
 export default rootReducer;

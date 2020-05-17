@@ -34,10 +34,10 @@ postSchema.pre(/^find/, function (next) {
     path: 'comments',
     select: 'comment'
   });
-  
-  this.populate('userId').populate({
-    path: 'user',
-    select: 'username profilePhoto'
+
+  this.populate({
+    path: 'userId',
+    select: 'username'
   });
   next();
 });
@@ -47,7 +47,7 @@ postSchema.pre('save', function (next) {
     path: 'comments',
     select: 'comment'
   });
-  
+
   this.populate('userId').populate({
     path: 'user',
     select: 'username profilePhoto'
