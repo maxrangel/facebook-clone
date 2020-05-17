@@ -1,16 +1,16 @@
-import * as moment from 'moment';
 import {
-  ADD_POST,
-  FETCH_POSTS,
+  FETCH_POSTS_START,
   FETCH_POSTS_SUCCESS,
-  FETCH_POSTS_FAILED
+  FETCH_POSTS_FAILED,
+  ADD_POST_START,
+  ADD_POST_SUCCESS,
+  ADD_POST_FAILURE
 } from '../action.types';
-import Post from '../../models/post.model';
 import axios from 'axios';
 
 export const fetchAllPosts = () => {
   return async dispatch => {
-    dispatch({ type: FETCH_POSTS });
+    dispatch({ type: FETCH_POSTS_START });
 
     try {
       const response = await axios.get('/api/v1/posts');
@@ -24,13 +24,22 @@ export const fetchAllPosts = () => {
   };
 };
 
-export const addPost = postDesc => {
-  const newPost = new Post(
-    Math.ceil(Math.random() * 100),
-    postDesc,
-    1,
-    moment().utc().format('Do MMMM YYYY, h:mm:ss a')
-  );
+export const addPost = (postContent, userId) => {
+  return async dispatch => {
+    dispatch({ type: ADD_POST_START });
 
-  return { type: ADD_POST, payload: newPost };
+    try {
+      const post = { content: postContent, userId };
+
+      const response = await axios.post('/api/v1/posts', post, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      const newPost = response.data.data.newPost;
+      dispatch({ type: ADD_POST_SUCCESS, payload: { newPost } });
+    } catch (err) {
+      const error = err.response.data.message;
+      dispatch({ type: ADD_POST_FAILURE, payload: { error } });
+    }
+  };
 };

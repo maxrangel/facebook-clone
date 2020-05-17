@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../../store/actions/auth.actions'
 import PostForm from '../../components/posts/post-form/post-form.component';
 import ProfileHeader from '../../components/user-profile/profile-header/profile-header.component';
 import PostCard from '../../components/posts/post-card/post-card.component';
@@ -39,8 +38,4 @@ const mapStateToProps = state => ({
   posts: state.postsReducer.posts
 });
 
-const mapDispatchToProps = dispatch => ({
-  logoutUser: () => dispatch(logout())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
+export default connect(mapStateToProps)(ProfilePage);

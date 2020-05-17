@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { addPost } from '../../../store/actions/posts.actions';
 import TextareaAutosize from 'react-textarea-autosize';
+
+import { addPost } from '../../../store/actions/posts.actions';
 
 import './post-form.styles.scss';
 
 const PostForm = props => {
-  const { addPost } = props;
+  const { isLoading, currentUser, addPost } = props;
   const postDescRef = useRef('');
   const [disableBtn, setDisableBtn] = useState(true); // Btn is disabled at start
 
@@ -20,9 +21,12 @@ const PostForm = props => {
 
   const onAddPost = () => {
     const descInput = postDescRef.current.value;
-    addPost(descInput);
+    if (!descInput) return;
+
     postDescRef.current.value = '';
     setDisableBtn(true);
+
+    addPost(descInput, currentUser._id);
   };
 
   return (
@@ -37,15 +41,23 @@ const PostForm = props => {
         onFocus={validDesc}
       />
 
-      <button className='post-btn' disabled={disableBtn} onClick={onAddPost}>
+      <button
+        className='post-btn'
+        disabled={disableBtn || isLoading}
+        onClick={onAddPost}>
         Post!
       </button>
     </div>
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  addPost: postDesc => dispatch(addPost(postDesc))
+const mapStateToProps = state => ({
+  isLoading: state.postsReducer.isLoading,
+  currentUser: state.authReducer.currentUser
 });
 
-export default connect(null, mapDispatchToProps)(PostForm);
+const mapDispatchToProps = dispatch => ({
+  addPost: (postDesc, userId) => dispatch(addPost(postDesc, userId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

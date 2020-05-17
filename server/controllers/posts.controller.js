@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.getAllPosts = catchAsync(async (req, res, next) => {
-  const posts = await Post.find();
+  const posts = await Post.find().sort({ createdAt: -1 });
 
   return res.status(200).json({
     status: 'success',
@@ -16,7 +16,8 @@ exports.getAllPosts = catchAsync(async (req, res, next) => {
 exports.createNewPost = catchAsync(async (req, res, next) => {
   const { content, userId } = req.body;
 
-  const newPost = await Post.create({ content, userId });
+  let newPost = await Post.create({ content, userId });
+  newPost = await newPost.populate('userId').execPopulate();
 
   res.status(201).json({
     status: 'success',

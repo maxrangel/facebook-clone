@@ -27,11 +27,9 @@
 
       .user-name {
         margin: 0;
-        color: $primary-color;
         font-size: 18px;
 
         &:hover {
-          // border-bottom: 1px solid $primary-color;
           cursor: pointer;
         }
       }

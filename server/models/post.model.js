@@ -34,6 +34,24 @@ postSchema.pre(/^find/, function (next) {
     path: 'comments',
     select: 'comment'
   });
+  
+  this.populate('userId').populate({
+    path: 'user',
+    select: 'username profilePhoto'
+  });
+  next();
+});
+
+postSchema.pre('save', function (next) {
+  this.populate({
+    path: 'comments',
+    select: 'comment'
+  });
+  
+  this.populate('userId').populate({
+    path: 'user',
+    select: 'username profilePhoto'
+  });
   next();
 });
 
