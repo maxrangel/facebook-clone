@@ -1,28 +1,17 @@
 version: 2.1
-
+orbs:
+  node: circleci/node@1.1.6
 jobs:
-  step1:
-    docker:
-      - image: alpine:3.7
+  build-and-test:
+    executor:
+      name: node/default
     steps:
-      - run:
-          name: The First Step
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
-
-  step2:
-    docker:
-      - image: alpine:3.7
-    steps:
-      - run:
-          name: The second steps
-          command: |
-            echo 'Second step running!'
-
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm test
 workflows:
-  version: 2.1
-  step1_step2:
-    jobs:
-      - step1
-      - step2
+    build-and-test:
+      jobs:
+        - build-and-test
