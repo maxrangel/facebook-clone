@@ -20,9 +20,9 @@ jobs:
           command: |
             echo 'Second step running!'
 
-  workflows:
-    version: 2.1
-    step1_step2:
-      jobs:
-        - step1
-        - step2
+workflows:
+  version: 2.1
+  step1_step2:
+    jobs:
+      - step1
+      - step2
