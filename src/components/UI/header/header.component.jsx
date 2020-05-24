@@ -13,7 +13,7 @@ const Header = props => {
   return (
     <div className='header'>
       <NavLink to='/home' className='logo-container'>
-        <h2 className='logo'>Facebook</h2>
+        <h2>Facebook</h2>
       </NavLink>
 
       {isAuth ? (
@@ -22,7 +22,7 @@ const Header = props => {
             Home
           </NavLink>
           <NavLink
-            to='/profile'
+            to={`/profile/${currentUser._id}`}
             className='option'
             activeClassName='active-link'
             onClick={onNavigateUserProfile}>

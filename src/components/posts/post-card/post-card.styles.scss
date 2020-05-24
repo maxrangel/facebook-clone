@@ -34,7 +34,6 @@
       padding: 0px 10px;
 
       .user-name {
-        margin: 0 0 5px;
         font-size: 18px;
 
         &:hover {
@@ -44,7 +43,7 @@
 
       .post-published {
         font-size: 14px;
-        margin: 0px;
+        margin: 5px 0 0;
         color: grey;
       }
     }
@@ -88,18 +87,14 @@
     width: 100%;
     padding: 5px 0;
 
-    .btn {
+    .btn-custom {
       color: #525050;
       font-weight: bold;
-      height: 35px;
       font-size: 16px;
+      padding: 10px 0;
       width: 100%;
       border: none;
       background: white;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
 
       // TODO: HAVE THE LIKE FUNCITONALITY TO ADD THIS CLASS DYNAMICALLY
       &.liked {

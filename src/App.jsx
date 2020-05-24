@@ -31,7 +31,7 @@ const App = props => {
             <HomePage />
           </PrivateRoute>
 
-          <PrivateRoute isAuth={isAuth} path='/profile' exact>
+          <PrivateRoute isAuth={isAuth} path='/profile/:id' exact>
             <ProfilePage />
           </PrivateRoute>
 

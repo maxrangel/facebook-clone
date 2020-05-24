@@ -1,36 +1,59 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { fetchUserProfile } from '../../store/actions/user.actions';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { logout } from '../../store/actions/auth.actions';
 
 import PostForm from '../../components/posts/post-form/post-form.component';
 import UserProfilePicture from '../../components/UI/user-profile-picture/user-profile-picture.component';
-// import PostCard from '../../components/posts/post-card/post-card.component';
+import Spinner from '../../components/UI/spinner/spinner.component';
+import PostCard from '../../components/posts/post-card/post-card.component';
 
 import './profile.styles.scss';
 
 const ProfilePage = props => {
-  const { logoutUser, currentUser } = props;
+  const { logoutUser, getProfile, isLoading, user, posts, currentUser } = props;
+  const { id } = useParams();
 
-  // const renderedPosts = userPosts.map(post => (
-  //   <PostCard post={post} key={post.id} />
-  // ));
-  const renderedPosts = [];
+  const getUserProfile = useCallback(async () => {
+    getProfile(id);
+  }, [getProfile, id]);
 
-  return (
+  useEffect(() => {
+    getUserProfile();
+  }, [getUserProfile]);
+
+  const renderedPosts = posts.map(post => (
+    <PostCard post={post} key={post.id} />
+  ));
+
+  // Keep loading if the user is null
+  return isLoading || !user ? (
+    <Spinner message='Loading profile...' />
+  ) : (
     <div className='profile-container'>
       <div className='user-container'>
         <UserProfilePicture />
         <div className='profile-actions'>
-          <h2>{currentUser.username}</h2>
-          <button className='btn-logout' onClick={logoutUser}>
-            Log Out
-          </button>
+          <h2>{user.username}</h2>
+          {currentUser._id === user._id ? (
+            <button className='btn-logout' onClick={logoutUser}>
+              Log Out
+            </button>
+          ) : (
+            <button className='btn-friend-request' onClick={logoutUser}>
+              Send friend request
+            </button>
+          )}
         </div>
       </div>
-      <div className='post-form-container'>
-        <PostForm />
-      </div>
+
+      {currentUser._id === user._id && (
+        <div className='post-form-container'>
+          <PostForm />
+        </div>
+      )}
 
       <div className='user-posts'>
         {!renderedPosts.length ? (
@@ -46,10 +69,14 @@ const ProfilePage = props => {
 };
 
 const mapStateToProps = state => ({
-  currentUser: state.authReducer.currentUser
+  currentUser: state.authReducer.currentUser,
+  isLoading: state.userReducer.isLoading,
+  user: state.userReducer.user,
+  posts: state.userReducer.posts
 });
 
 const mapDispatchToProps = dispatch => ({
+  getProfile: userId => dispatch(fetchUserProfile(userId)),
   logoutUser: () => dispatch(logout())
 });
 
