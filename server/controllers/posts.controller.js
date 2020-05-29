@@ -28,7 +28,7 @@ exports.createNewPost = catchAsync(async (req, res, next) => {
 });
 
 exports.likePost = catchAsync(async (req, res, next) => {
-  const { postId, userId } = req.body;
+  const { postId, userId } = req.params;
 
   // Check if the user has already liked this post
   const isPostLiked = await Post.findOne({
@@ -46,7 +46,10 @@ exports.likePost = catchAsync(async (req, res, next) => {
     });
   }
 
-  res.status(204).json({
-    status: 'success'
+  const post = await Post.findById(postId);
+  
+  res.status(201).json({
+    status: 'success',
+    data: { post }
   });
 });

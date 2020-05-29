@@ -1,12 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { likePost } from '../../../store/actions/posts.actions';
 import * as moment from 'moment';
 
 import './post-card.styles.scss';
 
 const PostCard = props => {
-  const { post } = props;
+  const { post, currentUser, likePostHandler } = props;
   const formatDate = moment(post.updatedAt).format('D MMM YYYY h:mm a');
+
+  const onLikePostHandler = () => {
+    likePostHandler(post.id, currentUser._id);
+
+    // Update post class
+  };
 
   return (
     <div className='post-card'>
@@ -25,14 +33,16 @@ const PostCard = props => {
         </div>
 
         <div className='options'>
-          <button className="btn-custom">...</button>
+          <button className='btn-custom'>...</button>
         </div>
       </div>
       <div className='post-content'>
         <p>{post.content}</p>
       </div>
       <div className='post-footer'>
-        <button className='btn-custom'>{post.likes.length} Like</button>
+        <button className='btn-custom' onClick={onLikePostHandler}>
+          {post.likes.length} Like
+        </button>
         <button className='btn-custom'>{post.comments.length} Comment</button>
         <button className='btn-custom'>Share</button>
       </div>
@@ -41,4 +51,12 @@ const PostCard = props => {
   );
 };
 
-export default PostCard;
+const mapStateToProps = state => ({
+  currentUser: state.authReducer.currentUser
+});
+
+const mapDispatchToProps = dispatch => ({
+  likePostHandler: (postId, userId) => dispatch(likePost(postId, userId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostCard);
