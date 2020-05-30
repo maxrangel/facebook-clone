@@ -72,8 +72,8 @@ const ProfilePage = props => {
 const mapStateToProps = state => ({
   currentUser: state.authReducer.currentUser,
   isLoading: state.userReducer.isLoading,
-  user: state.userReducer.user,
-  posts: state.userReducer.posts
+  user: state.postsReducer.user,
+  posts: state.postsReducer.posts
 });
 
 const mapDispatchToProps = dispatch => ({

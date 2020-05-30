@@ -2,29 +2,35 @@ import {
   ADD_POST_START,
   FETCH_POSTS_START,
   FETCH_POSTS_SUCCESS,
-  FETCH_POSTS_FAILED,
+  FETCH_POSTS_FAILURE,
   ADD_POST_SUCCESS,
   ADD_POST_FAILURE,
   LIKE_POST_START,
   LIKE_POST_SUCCESS,
-  LIKE_POST_FAILURE
+  LIKE_POST_FAILURE,
+  USER_PROFILE_START,
+  USER_PROFILE_FAILURE,
+  USER_PROFILE_SUCCESS
 } from '../action.types';
 
 const initialState = {
   posts: [],
   isLoading: false,
-  error: null
+  error: null,
+  user: null
 };
 
 const postsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST_START:
     case FETCH_POSTS_START:
+    case USER_PROFILE_START:
       return { ...state, isLoading: true, error: null };
 
     case ADD_POST_FAILURE:
-    case FETCH_POSTS_FAILED:
+    case FETCH_POSTS_FAILURE: // TODO
     case LIKE_POST_FAILURE:
+    case USER_PROFILE_FAILURE:
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
 
@@ -48,6 +54,10 @@ const postsReducer = (state = initialState, action) => {
       const oldPosts = [...state.posts];
       oldPosts[oldPostIndex] = { ...post };
       return { ...state, posts: [...oldPosts], error: null };
+    
+    case USER_PROFILE_SUCCESS:
+      const { user, userPosts } = action.payload;
+      return { ...state, posts: userPosts, user, isLoading: false };
 
     default:
       return state;
