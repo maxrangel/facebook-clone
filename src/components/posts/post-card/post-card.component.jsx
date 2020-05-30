@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { likePost } from '../../../store/actions/posts.actions';
 import * as moment from 'moment';
 
 import './post-card.styles.scss';
+import { useCallback } from 'react';
 
 const PostCard = props => {
+  const [postLiked, setPostLiked] = useState(false);
   const { post, currentUser, likePostHandler } = props;
-  const formatDate = moment(post.updatedAt).format('D MMM YYYY h:mm a');
+  const formatDate = moment(post.createdAt).format('D MMM YYYY h:mm a');
+
+  // If userId is found, then user liked post, otherwise, has not been liked yet
+  const validateUserLike = useCallback(() => {
+    const userLike = post.likes.find(userId => userId === currentUser._id);
+    setPostLiked(!!userLike);
+  }, [currentUser, post]);
+
+  // Check if current user already liked post
+  useEffect(() => {
+    validateUserLike();
+  }, [validateUserLike]);
 
   const onLikePostHandler = () => {
     likePostHandler(post.id, currentUser._id);
 
     // Update post class
+    validateUserLike();
   };
 
   return (
@@ -40,7 +54,9 @@ const PostCard = props => {
         <p>{post.content}</p>
       </div>
       <div className='post-footer'>
-        <button className='btn-custom' onClick={onLikePostHandler}>
+        <button
+          className={`btn-custom ${postLiked ? 'liked' : ''}`}
+          onClick={onLikePostHandler}>
           {post.likes.length} Like
         </button>
         <button className='btn-custom'>{post.comments.length} Comment</button>

@@ -1,6 +1,6 @@
 const Post = require('../models/post.model');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+// const AppError = require('../utils/appError');
 
 exports.getAllPosts = catchAsync(async (req, res, next) => {
   const posts = await Post.find().sort({ createdAt: -1 });
