@@ -37,12 +37,13 @@ const ProfilePage = props => {
         <UserProfilePicture />
         <div className='profile-actions'>
           <h2>{user.username}</h2>
+          <h4>Friends: {user.friends.length}</h4>
           {currentUser._id === user._id ? (
-            <button className='btn-logout' onClick={logoutUser}>
+            <button className='btn btn-logout' onClick={logoutUser}>
               Log Out
             </button>
           ) : (
-            <button className='btn-friend-request' onClick={logoutUser}>
+            <button className=' btn btn-friend' onClick={logoutUser}>
               Send friend request
             </button>
           )}

@@ -25,8 +25,6 @@ const PostCard = props => {
 
   const onLikePostHandler = () => {
     likePostHandler(post.id, currentUser._id);
-
-    // Update post class
     validateUserLike();
   };
 
@@ -60,9 +58,10 @@ const PostCard = props => {
           {post.likes.length} Like
         </button>
         <button className='btn-custom'>{post.comments.length} Comment</button>
-        <button className='btn-custom'>Share</button>
       </div>
-      <div className='comments'></div>
+      <div className='comments'>
+        
+      </div>
     </div>
   );
 };
