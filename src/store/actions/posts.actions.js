@@ -72,7 +72,7 @@ export const likePost = (postId, userId) => {
 export const fetchUserProfile = userId => {
   return async dispatch => {
     dispatch({ type: USER_PROFILE_START });
-    
+
     try {
       const response = await axios.get(`/api/v1/users/profile/${userId}`);
       const { user, userPosts } = response.data.data;
@@ -84,4 +84,3 @@ export const fetchUserProfile = userId => {
     }
   };
 };
-

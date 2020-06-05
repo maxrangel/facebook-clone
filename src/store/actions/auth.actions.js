@@ -18,8 +18,11 @@ export const login = (email, password) => {
         email,
         password
       });
-      const user = response.data.data.user;
-      dispatch({ type: LOGIN_SUCCESS, payload: { user } });
+      const {
+        token,
+        data: { user }
+      } = response.data;
+      dispatch({ type: LOGIN_SUCCESS, payload: { user, token } });
     } catch (err) {
       const error = err.response.data.message;
       dispatch({ type: LOGIN_FAILURE, payload: { error } });
