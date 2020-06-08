@@ -7,7 +7,7 @@ import { addPost } from '../../../store/actions/posts.actions';
 import './post-form.styles.scss';
 
 const PostForm = props => {
-  const { isLoading, currentUser, addPost } = props;
+  const { isLoading, currentUser, addPost, authToken } = props;
   const postDescRef = useRef('');
   const [disableBtn, setDisableBtn] = useState(true); // Btn is disabled at start
 
@@ -26,7 +26,7 @@ const PostForm = props => {
     postDescRef.current.value = '';
     setDisableBtn(true);
 
-    addPost(descInput, currentUser._id);
+    addPost(descInput, currentUser._id, authToken);
   };
 
   return (
@@ -53,11 +53,13 @@ const PostForm = props => {
 
 const mapStateToProps = state => ({
   isLoading: state.postsReducer.isLoading,
-  currentUser: state.authReducer.currentUser
+  currentUser: state.authReducer.currentUser,
+  authToken: state.authReducer.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  addPost: (postDesc, userId) => dispatch(addPost(postDesc, userId))
+  addPost: (postDesc, userId, token) =>
+    dispatch(addPost(postDesc, userId, token))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

@@ -9,7 +9,7 @@ import { useCallback } from 'react';
 
 const PostCard = props => {
   const [postLiked, setPostLiked] = useState(false);
-  const { post, currentUser, likePostHandler } = props;
+  const { post, currentUser, likePostHandler, authToken } = props;
   const formatDate = moment(post.createdAt).format('D MMM YYYY h:mm a');
 
   // If userId is found, then user liked post, otherwise, has not been liked yet
@@ -24,7 +24,7 @@ const PostCard = props => {
   }, [validateUserLike]);
 
   const onLikePostHandler = () => {
-    likePostHandler(post.id, currentUser._id);
+    likePostHandler(post.id, currentUser._id, authToken);
     validateUserLike();
   };
 
@@ -67,11 +67,12 @@ const PostCard = props => {
 };
 
 const mapStateToProps = state => ({
-  currentUser: state.authReducer.currentUser
+  currentUser: state.authReducer.currentUser,
+  authToken: state.authReducer.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  likePostHandler: (postId, userId) => dispatch(likePost(postId, userId))
+  likePostHandler: (postId, userId, token) => dispatch(likePost(postId, userId, token))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostCard);

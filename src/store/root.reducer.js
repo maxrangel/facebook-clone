@@ -12,7 +12,7 @@ const authPersistConfig = {
   key: 'authData',
   storage: localForage,
   stateReconcilier: autoMergeLevel2,
-  whitelist: ['currentUser', 'isAuth']
+  whitelist: ['currentUser', 'isAuth', 'token']
 };
 
 const rootReducer = combineReducers({

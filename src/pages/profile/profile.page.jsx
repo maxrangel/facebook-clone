@@ -13,12 +13,20 @@ import PostCard from '../../components/posts/post-card/post-card.component';
 import './profile.styles.scss';
 
 const ProfilePage = props => {
-  const { logoutUser, getProfile, isLoading, user, posts, currentUser } = props;
+  const {
+    logoutUser,
+    getProfile,
+    isLoading,
+    user,
+    posts,
+    currentUser,
+    authToken
+  } = props;
   const { id } = useParams();
 
   const getUserProfile = useCallback(async () => {
-    getProfile(id);
-  }, [getProfile, id]);
+    getProfile(id, authToken);
+  }, [getProfile, id, authToken]);
 
   useEffect(() => {
     getUserProfile();
@@ -71,13 +79,14 @@ const ProfilePage = props => {
 
 const mapStateToProps = state => ({
   currentUser: state.authReducer.currentUser,
+  authToken: state.authReducer.token,
   isLoading: state.userReducer.isLoading,
   user: state.postsReducer.user,
   posts: state.postsReducer.posts
 });
 
 const mapDispatchToProps = dispatch => ({
-  getProfile: userId => dispatch(fetchUserProfile(userId)),
+  getProfile: (userId, token) => dispatch(fetchUserProfile(userId, token)),
   logoutUser: () => dispatch(logout())
 });
 

@@ -22,6 +22,9 @@ export const login = (email, password) => {
         token,
         data: { user }
       } = response.data;
+
+      console.log(response.data);
+      
       dispatch({ type: LOGIN_SUCCESS, payload: { user, token } });
     } catch (err) {
       const error = err.response.data.message;

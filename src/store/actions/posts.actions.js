@@ -14,12 +14,16 @@ import {
 } from '../action.types';
 import axios from 'axios';
 
-export const fetchAllPosts = () => {
+export const fetchAllPosts = token => {
   return async dispatch => {
     dispatch({ type: FETCH_POSTS_START });
 
     try {
-      const response = await axios.get('/api/v1/posts');
+      const response = await axios.get('/api/v1/posts', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       const { posts } = response.data.data;
 
       dispatch({ type: FETCH_POSTS_SUCCESS, payload: { posts } });
@@ -30,7 +34,7 @@ export const fetchAllPosts = () => {
   };
 };
 
-export const addPost = (postContent, userId) => {
+export const addPost = (postContent, userId, token) => {
   return async dispatch => {
     dispatch({ type: ADD_POST_START });
 
@@ -38,7 +42,10 @@ export const addPost = (postContent, userId) => {
       const post = { content: postContent, userId };
 
       const response = await axios.post('/api/v1/posts', post, {
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
       });
 
       const { newPost } = response.data.data;
@@ -50,13 +57,18 @@ export const addPost = (postContent, userId) => {
   };
 };
 
-export const likePost = (postId, userId) => {
+export const likePost = (postId, userId, token) => {
   return async dispatch => {
     dispatch({ type: LIKE_POST_START });
 
     try {
       const response = await axios.get(
-        `/api/v1/posts/like/${postId}/${userId}`
+        `/api/v1/posts/like/${postId}/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
 
       // Updated post, either with like or dislike
@@ -69,12 +81,14 @@ export const likePost = (postId, userId) => {
   };
 };
 
-export const fetchUserProfile = userId => {
+export const fetchUserProfile = (userId, token) => {
   return async dispatch => {
     dispatch({ type: USER_PROFILE_START });
 
     try {
-      const response = await axios.get(`/api/v1/users/profile/${userId}`);
+      const response = await axios.get(`/api/v1/users/profile/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       const { user, userPosts } = response.data.data;
 
       dispatch({ type: USER_PROFILE_SUCCESS, payload: { user, userPosts } });

@@ -10,7 +10,7 @@ import './home.styles.scss';
 import { useCallback } from 'react';
 
 const HomePage = props => {
-  const { posts, isLoading, getAllPosts } = props;
+  const { posts, isLoading, getAllPosts, authToken } = props;
 
   const renderedPosts = posts.map(post => (
     <PostCard post={post} key={post.id} />
@@ -19,8 +19,8 @@ const HomePage = props => {
   // Fetch posts
   const fetchPosts = useCallback(async () => {
     // Dispatch fetch posts
-    getAllPosts();
-  }, [getAllPosts]);
+    getAllPosts(authToken);
+  }, [getAllPosts, authToken]);
 
   useEffect(() => {
     fetchPosts();
@@ -47,11 +47,12 @@ const HomePage = props => {
 
 const mapStateToProps = state => ({
   posts: state.postsReducer.posts,
-  isLoading: state.postsReducer.isLoading
+  isLoading: state.postsReducer.isLoading,
+  authToken: state.authReducer.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAllPosts: () => dispatch(fetchAllPosts())
+  getAllPosts: token => dispatch(fetchAllPosts(token))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

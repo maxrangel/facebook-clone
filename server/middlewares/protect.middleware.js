@@ -22,7 +22,7 @@ module.exports = catchAsync(async (req, res, next) => {
   if (!decodedToken) return next(new AppError('Session expired!', 403));
 
   // Fetch user
-  const currentUser = await User.findById(decodedToken.id);
+  const currentUser = await User.findById(decodedToken.userId);
 
   if (!currentUser) {
     return next(
