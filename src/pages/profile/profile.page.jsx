@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { fetchUserProfile } from '../../store/actions/user.actions';
+import { fetchUserProfile } from '../../store/actions/posts.actions';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 

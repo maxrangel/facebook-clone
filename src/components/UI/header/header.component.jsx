@@ -9,18 +9,21 @@ const Header = props => {
 
   return (
     <div className='header'>
-      <NavLink to='/home' className='logo-container'>
-        <h2>Facebook</h2>
+      <NavLink to='/home' className='header__logo-text'>
+        Facebook
       </NavLink>
 
       {isAuth ? (
-        <div className='options'>
-          <NavLink to='/home' className='option' activeClassName='active-link'>
+        <div className='header__options'>
+          <NavLink
+            to='/home'
+            className='header__option'
+            activeClassName='active-link'>
             Home
           </NavLink>
           <NavLink
             to={`/profile/${currentUser._id}`}
-            className='option'
+            className='header__option'
             activeClassName='active-link'>
             Profile
           </NavLink>

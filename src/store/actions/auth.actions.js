@@ -1,17 +1,9 @@
 import axios from 'axios';
-import {
-  LOGIN_START,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  SIGNUP_START,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
-  LOGOUT
-} from '../action.types';
+import * as actionTypes from '../action.types';
 
 export const login = (email, password) => {
   return async dispatch => {
-    dispatch({ type: LOGIN_START });
+    dispatch({ type: actionTypes.LOGIN_START });
 
     try {
       const response = await axios.post('/api/v1/auth/login', {
@@ -24,18 +16,18 @@ export const login = (email, password) => {
       } = response.data;
 
       console.log(response.data);
-      
-      dispatch({ type: LOGIN_SUCCESS, payload: { user, token } });
+
+      dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: { user, token } });
     } catch (err) {
       const error = err.response.data.message;
-      dispatch({ type: LOGIN_FAILURE, payload: { error } });
+      dispatch({ type: actionTypes.LOGIN_FAILURE, payload: { error } });
     }
   };
 };
 
 export const signup = (username, email, password, passwordConfirm) => {
   return async dispatch => {
-    dispatch({ type: SIGNUP_START });
+    dispatch({ type: actionTypes.SIGNUP_START });
 
     try {
       await axios.post('/api/v1/auth/signup', {
@@ -44,12 +36,12 @@ export const signup = (username, email, password, passwordConfirm) => {
         password,
         passwordConfirm
       });
-      dispatch({ type: SIGNUP_SUCCESS });
+      dispatch({ type: actionTypes.SIGNUP_SUCCESS });
     } catch (err) {
       const error = err.response.data.message;
-      dispatch({ type: SIGNUP_FAILURE, payload: { error } });
+      dispatch({ type: actionTypes.SIGNUP_FAILURE, payload: { error } });
     }
   };
 };
 
-export const logout = () => ({ type: LOGOUT });
+export const logout = () => ({ type: actionTypes.LOGOUT });

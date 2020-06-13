@@ -10,7 +10,14 @@ import './home.styles.scss';
 import { useCallback } from 'react';
 
 const HomePage = props => {
-  const { posts, isLoading, getAllPosts, authToken } = props;
+  const {
+    posts,
+    isLoading,
+    getAllPosts,
+    authToken,
+    authError,
+    postsError
+  } = props;
 
   const renderedPosts = posts.map(post => (
     <PostCard post={post} key={post.id} />
@@ -48,7 +55,9 @@ const HomePage = props => {
 const mapStateToProps = state => ({
   posts: state.postsReducer.posts,
   isLoading: state.postsReducer.isLoading,
-  authToken: state.authReducer.token
+  authToken: state.authReducer.token,
+  authError: state.authReducer.error,
+  postsError: state.postsReducer.error
 });
 
 const mapDispatchToProps = dispatch => ({
