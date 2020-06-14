@@ -80,7 +80,7 @@ const ProfilePage = props => {
 const mapStateToProps = state => ({
   currentUser: state.authReducer.currentUser,
   authToken: state.authReducer.token,
-  isLoading: state.userReducer.isLoading,
+  isLoading: state.postsReducer.isLoading,
   user: state.postsReducer.user,
   posts: state.postsReducer.posts
 });

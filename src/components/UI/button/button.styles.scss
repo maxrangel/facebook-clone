@@ -1,17 +1,27 @@
-@import '../../../App.styles.scss';
+@import '../../../scss/variables';
 
 .btn {
-  margin: 10px 0;
-  padding: 10px;
+  display: block;
   border: none;
-  font-size: 14px;
-  background: $light-color;
-  border-radius: 5px;
-  color: white;
+  padding: 1rem 2rem;
+  margin: 1.5rem 0 0.5rem;
   width: 100%;
+  background-color: lighten($color-primary, $amount: 5);
+  transition: all 0.2s;
+  color: $color-white;
+  font-size: 1.7rem;
+  font-weight: 300;
+  border-radius: 50rem;
+  box-shadow: 0 0.5rem 0.5rem rgba($color-dark-1, 0.2);
+  outline: none;
 
   &:hover {
-    background: $tertiary-color;
-    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 0 1rem 0.5rem rgba($color-dark-1, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 0 0 rgba($color-dark-1, 0.2);
   }
 }

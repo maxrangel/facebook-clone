@@ -1,13 +1,17 @@
 // COLORS
-$primary-color: #3049d1;
-$primary-color-light: #7889e3;
-$primary-color-dark: #0d2291;
+$color-primary: #3049d1;
+$color-primary-light: #7889e3;
+$color-primary-dark: #0d2291;
+
+$color-danger-1: #D5131D;
 
 $color-blue-light: #5166d9;
 $color-blue-dark: #112eca;
 
-$primary-color-hover: #182ac7;
-$primary-color-disabled: #1d32f0a4;
+$color-primary-hover: #182ac7;
+$color-primary-disabled: #1d32f0a4;
+
+
 
 $secondary-color: #071ce1;
 $success-color: #3ec714;
@@ -17,6 +21,10 @@ $tertiary-color: #4354f1;
 
 $light-color: #6c79f1;
 $dark-color: #0716a1;
+
+$color-grey-1: #333;
+$color-grey-2: #777;
+$color-dark-1: #000;
 
 // FONTS
 $default-font-size: 1.6rem;

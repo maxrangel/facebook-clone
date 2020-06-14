@@ -1,0 +1,13 @@
+@import './variables';
+
+@mixin formContainer {
+  display: inline-block;
+  width: 45%;
+  border: 1px solid $color-grey-1;
+  border-radius: 3px;
+  overflow: hidden;
+  text-align: center;
+  background-color: $color-white;
+  box-shadow: 0 1rem 2rem rgba($color-dark-1, 0.3);
+  padding: 1rem 2rem;
+}

@@ -1,14 +1,9 @@
-@import '../../../App.styles.scss';
+@import '../../../scss/mixins';
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 40%;
-  margin: 0 auto;
-  background: white;
-  text-align: center;
-  padding: 0 20px 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  @include formContainer;
+
+  &__text {
+    margin-bottom: 1rem;
+  }
 }

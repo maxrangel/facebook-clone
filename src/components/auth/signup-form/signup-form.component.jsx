@@ -9,7 +9,7 @@ import Spinner from '../../UI/spinner/spinner.component';
 import './signup-form.styles.scss';
 
 const SignupForm = props => {
-  const { onShowSignup, isLoading, signupUser } = props;
+  const { isLoading, signupUser } = props;
 
   const usernameRef = useRef('');
   const emailRef = useRef('');
@@ -38,44 +38,45 @@ const SignupForm = props => {
     <Spinner message='Creating profile...' />
   ) : (
     <div className='signup-form'>
-      <h2 className='title'>I'm a new user!</h2>
-      <span>Create a new account now!</span>
-
-      <div>
-        <Input
-          type='text'
-          name='displayName'
-          label='Username'
-          id='username'
-          inputRef={usernameRef}
-        />
-        <Input
-          type='email'
-          name='email'
-          label='Email'
-          id='signin-email'
-          inputRef={emailRef}
-        />
-        <Input
-          type='password'
-          name='password'
-          label='Password'
-          id='signin-password'
-          inputRef={passwordRef}
-        />
-        <Input
-          type='password'
-          name='confirmPassword'
-          label='Confirm Password'
-          id='confirmPassword'
-          inputRef={passwordConfirmRef}
-        />
-
-        <div>
-          <Button label='Create account' onClick={onSignupHandler} />
-          <Button label='I already have an account!' onClick={onShowSignup} />
-        </div>
+      <div className='signup-form__text'>
+        <h2 className='title'>I'm a new user!</h2>
+        <span>Create a new account now!</span>
       </div>
+
+      <Input
+        type='text'
+        name='displayName'
+        label='Username'
+        id='username'
+        placeholder='username123'
+        inputRef={usernameRef}
+      />
+      <Input
+        type='email'
+        name='email'
+        label='Email'
+        id='signin-email'
+        placeholder='user@mail.com'
+        inputRef={emailRef}
+      />
+      <Input
+        type='password'
+        name='password'
+        label='Password'
+        id='signin-password'
+        placeholder='Password'
+        inputRef={passwordRef}
+      />
+      <Input
+        type='password'
+        name='confirmPassword'
+        label='Confirm Password'
+        id='confirmPassword'
+        placeholder='Confirm password'
+        inputRef={passwordConfirmRef}
+      />
+
+      <Button label='Create account' onClick={onSignupHandler} />
     </div>
   );
 };

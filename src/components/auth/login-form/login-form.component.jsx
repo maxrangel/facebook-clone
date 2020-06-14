@@ -9,7 +9,7 @@ import Spinner from '../../UI/spinner/spinner.component';
 import './login-form.styles.scss';
 
 const LoginForm = props => {
-  const { onShowSignup, loginUser, isLoading } = props;
+  const { loginUser, isLoading } = props;
 
   const emailRef = useRef('');
   const passwordRef = useRef('');
@@ -28,14 +28,17 @@ const LoginForm = props => {
     <Spinner message='Logging in...' />
   ) : (
     <div className='login-form'>
-      <h2>I already have an account</h2>
-      <span>Log in with your email and password.</span>
+      <div className='login-form__text'>
+        <h2>I already have an account</h2>
+        <span>Log in with your email and password.</span>
+      </div>
 
       <Input
         type='email'
         name='login-email'
         label='Email'
         id='login-email'
+        placeholder='Email'
         inputRef={emailRef}
       />
       <Input
@@ -43,13 +46,11 @@ const LoginForm = props => {
         name='login-password'
         label='Password'
         id='login-password'
+        placeholder='Password'
         inputRef={passwordRef}
       />
 
-      <div className='btns-container'>
-        <Button label='Log In' onClick={onLoginSubmit} />
-        <Button label="I don't have an account..." onClick={onShowSignup} />
-      </div>
+      <Button label='Log In' onClick={onLoginSubmit} />
     </div>
   );
 };
