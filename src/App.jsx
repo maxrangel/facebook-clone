@@ -7,11 +7,12 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import Header from './components/UI/header/header.component';
 import HomePage from './pages/home/home.page';
 import ProfilePage from './pages/profile/profile.page';
 import AuthPage from './pages/auth/auth.page';
 import NotFoundPage from './pages/not-found/404.page';
+
+import Header from './components/UI/header/header.component';
 
 import PrivateRoute from './hoc/with-private-route/with-private-route.hoc';
 

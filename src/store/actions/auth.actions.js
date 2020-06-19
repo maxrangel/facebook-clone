@@ -10,12 +10,11 @@ export const login = (email, password) => {
         email,
         password
       });
+
       const {
         token,
         data: { user }
       } = response.data;
-
-      console.log(response.data);
 
       dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: { user, token } });
     } catch (err) {
@@ -30,6 +29,15 @@ export const signup = (username, email, password, passwordConfirm) => {
     dispatch({ type: actionTypes.SIGNUP_START });
 
     try {
+      // Validate passwords
+      if (!(password === passwordConfirm)) {
+        dispatch({
+          type: actionTypes.SIGNUP_FAILURE,
+          payload: { error: 'Passwords do not match' }
+        });
+        return;
+      }
+
       await axios.post('/api/v1/auth/signup', {
         username,
         email,

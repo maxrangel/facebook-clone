@@ -13,14 +13,16 @@ const initialState = {
   token: null,
   isAuth: false,
   isLoading: false,
-  error: null
+  error: null,
+  success: null
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_START:
     case SIGNUP_START:
-      return { ...state, isLoading: true, error: null };
+      return { ...state, isLoading: true, error: null, success: null };
+
     case LOGIN_SUCCESS:
       const { user, token } = action.payload;
       return {
@@ -28,13 +30,15 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         currentUser: user,
         isAuth: true,
-        token
+        token,
+        success: 'Login successful!'
       };
 
     case SIGNUP_SUCCESS:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        success: 'Account created!'
       };
 
     case LOGIN_FAILURE:

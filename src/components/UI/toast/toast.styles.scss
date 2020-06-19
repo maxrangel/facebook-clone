@@ -1,0 +1,44 @@
+@import '../../../scss/variables';
+@import '../../../scss/animations';
+
+.toast {
+  width: 70%;
+  height: 5.5vh;
+  position: fixed;
+  top: 7%;
+  right: 15%;
+  color: $color-white;
+  border-radius: 50px;
+  border: 1px solid $color-grey-1;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.2s ease-in;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4rem);
+
+  &--active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  // opacity: 0;
+  // visibility: hidden;
+
+  &__text {
+    margin-left: 2rem;
+    text-align: center;
+  }
+
+  &--success {
+    background-color: $color-success-1;
+  }
+
+  &--info {
+    background-color: $color-primary-light;
+  }
+
+  &--danger {
+    background-color: $color-danger-1;
+  }
+}
